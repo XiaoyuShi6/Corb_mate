@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="workspace">
+    <CLASSES>
+      <root url="file:///opt/ros/kinetic/share" />
+      <root url="file://$USER_HOME$/catkin_car/src" />
+      <root url="file://$USER_HOME$/catkin_test/src" />
+      <root url="file://$USER_HOME$/catkin_multi/src" />
+      <root url="file://$USER_HOME$/catkin_ws/src" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/.." />
+    </SOURCES>
+  </library>
+</component>
