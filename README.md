@@ -112,4 +112,4 @@ rosrun 包名 可执行文件 词典 配置文件
 
 rosrun corbslam_client ros_RGBD /home/sxy/catkin_corb/src/corbslam_client/Vocabulary/ORBvoc.txt /home/sxy/ORB_SLAM2/Examples/RGB-D 01
 
-
+1111111111111111111
