@@ -174,8 +174,17 @@ int main(int argc, char **argv)
 
     }
 
+    if(SLAM.mbpointcloud==1)
+    {
+        while(SLAM.mpPointCloudMapping->loopbusy || SLAM.mpPointCloudMapping->cloudbusy)
+        {
+            cout<<"";
+        }
+        // Tracking time statistics
+        SLAM.mpPointCloudMapping->bStop = true;
+    }
     // Stop all threads
-    SLAM.Shutdown();
+
 
     // Tracking time statistics
     sort(vTimesTrack.begin(),vTimesTrack.end());
@@ -190,8 +199,11 @@ int main(int argc, char **argv)
 
     // Save camera trajectory
     SLAM.SaveTrajectoryTUM("CameraTrajectory.txt");
-    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");   
-
+    SLAM.SaveKeyFrameTrajectoryTUM("KeyFrameTrajectory.txt");
+    if(SLAM.mbpointcloud==1){
+        SLAM.save();
+    }
+    SLAM.Shutdown();
     return 0;
 }
 

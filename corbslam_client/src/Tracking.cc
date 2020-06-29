@@ -43,12 +43,13 @@ using namespace std;
 namespace ORB_SLAM2
 {
 
-Tracking::Tracking(System *pSys, Cache* pCacher, FrameDrawer *pFrameDrawer, MapDrawer *pMapDrawer, const string &strSettingPath, const int sensor):
+Tracking::Tracking(System *pSys, Cache* pCacher, FrameDrawer *pFrameDrawer, MapDrawer *pMapDrawer, const string &strSettingPath,
+        const int sensor,shared_ptr<PointCloudMapping> pPointCloud,int mbpointcloudm):
     mState(NO_IMAGES_YET), mSensor(sensor), mbOnlyTracking(false), mbVO(false), mpCacher( pCacher) , mpInitializer(static_cast<Initializer*>(NULL)), mpSystem(pSys),
-    mpFrameDrawer(pFrameDrawer), mpMapDrawer(pMapDrawer), mnLastRelocFrameId(0)
+    mpFrameDrawer(pFrameDrawer), mpMapDrawer(pMapDrawer), mnLastRelocFrameId(0),mpPointCloudMapping(pPointCloud),mbpointcloud(mbpointcloudm)
 {
     // Load camera parameters from settings file
-
+    idk=1;
     cv::FileStorage fSettings(strSettingPath, cv::FileStorage::READ);
     float fx = fSettings["Camera.fx"];
     float fy = fSettings["Camera.fy"];
@@ -205,9 +206,15 @@ cv::Mat Tracking::GrabImageStereo(const cv::Mat &imRectLeft, const cv::Mat &imRe
 
 cv::Mat Tracking::GrabImageRGBD(const cv::Mat &imRGB,const cv::Mat &imD, const double &timestamp)
 {
-    mImGray = imRGB;
-    cv::Mat imDepth = imD;
-
+    if(mbpointcloud==1) {
+        mImRGB = imRGB;
+        mImDepth = imD;
+        mImGray = imRGB;
+    }
+    else {
+        mImGray = imRGB;
+        mImDepth = imD;
+    }
     if(mImGray.channels()==3)
     {
         if(mbRGB)
@@ -223,10 +230,10 @@ cv::Mat Tracking::GrabImageRGBD(const cv::Mat &imRGB,const cv::Mat &imD, const d
             cvtColor(mImGray,mImGray,CV_BGRA2GRAY);
     }
 
-    if((fabs(mDepthMapFactor-1.0f)>1e-5) || imDepth.type()!=CV_32F)
-        imDepth.convertTo(imDepth,CV_32F,mDepthMapFactor);
+    if((fabs(mDepthMapFactor-1.0f)>1e-5) || mImDepth.type()!=CV_32F)
+        mImDepth.convertTo(mImDepth,CV_32F,mDepthMapFactor);
 
-    mCurrentFrame = Frame(mImGray,imDepth,timestamp,mpORBextractorLeft,mpCacher->getMpVocabulary(),mK,mDistCoef,mbf,mThDepth);
+    mCurrentFrame = Frame(mImGray,mImDepth,timestamp,mpORBextractorLeft,mpCacher->getMpVocabulary(),mK,mDistCoef,mbf,mThDepth);
 
     Track();
 
@@ -456,6 +463,7 @@ void Tracking::Track()
             // Check if we need to insert a new keyframe
             if(NeedNewKeyFrame())
                 CreateNewKeyFrame();
+            idk++;
             // We allow points with high innovation (considererd outliers by the Huber Function)
             // pass to the new keyframe, so that bundle adjustment will finally decide
             // if they are outliers or not. We don't want next frame to estimate its position
@@ -1160,7 +1168,10 @@ void Tracking::CreateNewKeyFrame()
     mpLocalMapper->InsertKeyFrame(pKF);
 
     mpLocalMapper->SetNotStop(false);
-
+    if(mbpointcloud==1) {
+        vector<KeyFrame *> vpKFs = mpCacher->mpMap->GetAllKeyFrames();
+        mpPointCloudMapping->insertKeyFrame(pKF, this->mImRGB, this->mImDepth, idk, vpKFs);
+    }
     mnLastKeyFrameId = mCurrentFrame.mnId;
     mpLastKeyFrame = pKF;
 }

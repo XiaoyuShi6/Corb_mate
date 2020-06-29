@@ -40,7 +40,7 @@ namespace ORB_SLAM2 {
             mfLogScaleFactor(F.mfLogScaleFactor), mvScaleFactors(F.mvScaleFactors), mvLevelSigma2(F.mvLevelSigma2),
             mvInvLevelSigma2(F.mvInvLevelSigma2), mnMinX(F.mnMinX), mnMinY(F.mnMinY), mnMaxX(F.mnMaxX),
             mnMaxY(F.mnMaxY), mK(F.mK), mvpMapPoints(F.mvpMapPoints), mpCacher(pCacher), mbFirstConnection(true),
-            mpParent(nullptr),
+            mpParent(nullptr),mDepthim_k(F.mDepthRGB),
             mbNotErase(false),
             mbToBeErased(false), mbBad(false), mHalfBaseline(F.mb / 2) {
         {
@@ -49,7 +49,7 @@ namespace ORB_SLAM2 {
             if( KeyFrame::nNextId == 1) KeyFrame::nNextId = KeyFrame::nNextId + (mpCacher->pClientId - 1 ) * 1000000;
 
             mnId = KeyFrame::nNextId++;
-
+//            mDepthim=F.
             mGrid.resize(mnGridCols);
             for (int i = 0; i < mnGridCols; i++) {
                 mGrid[i].resize(mnGridRows);

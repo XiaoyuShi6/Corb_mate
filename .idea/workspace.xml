@@ -93,7 +93,39 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40ce9be8-8e95-4542-9604-149cccecb5eb" name="Default Changelist" comment="" />
+    <list default="true" id="40ce9be8-8e95-4542-9604-149cccecb5eb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cache.odt" beforeDir="false" afterPath="$PROJECT_DIR$/Cache.odt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/TUM3.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/TUM3.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/corbslam_client_rgbd_tum" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/corbslam_client_rgbd_tum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/rgbd_tum.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/Examples/RGB-D/rgbd_tum.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/Examples/Stereo/corbslam_client_stereo_kitti" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/Examples/Stereo/corbslam_client_stereo_kitti" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/Thirdparty/DBoW2/build/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/Thirdparty/DBoW2/build/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/Frame.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/Frame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/Initializer.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/Initializer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/KeyFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/KeyFrame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/LocalMapping.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/LocalMapping.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/LoopClosing.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/LoopClosing.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/Optimizer.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/Optimizer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/SerializeObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/SerializeObject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/System.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/System.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/Tracking.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/Tracking.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/include/Viewer.h" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/include/Viewer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/lib/libcorbslam_client.so" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/lib/libcorbslam_client.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/ros_test/ros_RGBD" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/ros_test/ros_RGBD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/Cache.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/Cache.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/Frame.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/Frame.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/KeyFrame.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/KeyFrame.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/LocalMapping.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/LocalMapping.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/LoopClosing.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/LoopClosing.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/ORBextractor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/ORBextractor.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/System.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/System.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_client/src/Tracking.cc" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_client/src/Tracking.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_server/corbslam_server" beforeDir="false" afterPath="$PROJECT_DIR$/corbslam_server/corbslam_server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corbslam_server/include/database.h" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,15 +136,27 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="OCResolveContextSettings">
+    <option name="configuration" value="0-corbslam_client" />
+  </component>
   <component name="ProjectId" id="1WNXBBbzjpMUG6EjEHQi9ZQK0Pg" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/ORB-SLAM2_RGBD_DENSE_MAP-master/CMakeLists.txt" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/corbslam_client/src" />
+      <recent name="$PROJECT_DIR$/corbslam_client/include" />
       <recent name="$PROJECT_DIR$/corbslam_client/Examples/RGB-D" />
     </key>
   </component>
@@ -671,10 +715,32 @@
       <workItem from="1587730127613" duration="11681000" />
       <workItem from="1587947863156" duration="17357000" />
       <workItem from="1587995356321" duration="4880000" />
+      <workItem from="1592744624491" duration="2496000" />
+      <workItem from="1592787583064" duration="1096000" />
+      <workItem from="1592803848982" duration="378000" />
+      <workItem from="1592996447648" duration="809000" />
+      <workItem from="1593002580312" duration="1156000" />
+      <workItem from="1593004959315" duration="2496000" />
+      <workItem from="1593133410101" duration="34933000" />
+      <workItem from="1593272470541" duration="9966000" />
+      <workItem from="1593319254310" duration="5901000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

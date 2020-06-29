@@ -4,7 +4,6 @@
 //
 // Create concrete database instance based on the DATABASE_* macros.
 //
-
 #ifndef DATABASE_HXX
 #define DATABASE_HXX
 

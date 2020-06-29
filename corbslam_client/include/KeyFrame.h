@@ -84,6 +84,7 @@ namespace ORB_SLAM2 {
                 ar & mspChildrens & mspLoopEdges;
                 ar & mbNotErase & mbToBeErased & mbBad;
                 ar & mHalfBaseline;
+                ar & mDepthim_k;
         };
 
     public:
@@ -208,7 +209,7 @@ namespace ORB_SLAM2 {
 
         // The following variables are accesed from only 1 thread or never change (no mutex needed).
     public:
-
+        cv::Mat mDepthim_k;
         static long unsigned int nNextId;
         long unsigned int mnId;
         long unsigned int mnFrameId;

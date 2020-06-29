@@ -20,11 +20,12 @@
 
 #ifndef LOCALMAPPING_H
 #define LOCALMAPPING_H
+#include "Tracking.h"
+#include "LoopClosing.h"
 
 #include "KeyFrame.h"
 #include "Map.h"
-#include "LoopClosing.h"
-#include "Tracking.h"
+
 #include "KeyFrameDatabase.h"
 #include "Cache.h"
 

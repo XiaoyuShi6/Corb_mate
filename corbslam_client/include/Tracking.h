@@ -22,21 +22,23 @@
 #ifndef TRACKING_H
 #define TRACKING_H
 
-#include<opencv2/core/core.hpp>
+#include "System.h"
+#include"LoopClosing.h"
+#include"LocalMapping.h"
 #include<opencv2/features2d/features2d.hpp>
 
 #include"Viewer.h"
 #include"FrameDrawer.h"
 #include"Map.h"
-#include"LocalMapping.h"
-#include"LoopClosing.h"
+
+
 #include"Frame.h"
 #include "ORBVocabulary.h"
 #include "KeyFrameDatabase.h"
 #include "ORBextractor.h"
 #include "Initializer.h"
 #include "MapDrawer.h"
-#include "System.h"
+
 #include "Cache.h"
 #include <mutex>
 
@@ -55,7 +57,8 @@ class Tracking
 {  
 
 public:
-    Tracking(System* pSys, Cache* pCacher, FrameDrawer* pFrameDrawer, MapDrawer* pMapDrawer, const string &strSettingPath, const int sensor);
+    Tracking(System* pSys, Cache* pCacher, FrameDrawer* pFrameDrawer,MapDrawer* pMapDrawer, const string &strSettingPath,
+            const int sensor,shared_ptr<PointCloudMapping> pPointCloud,int mbpointcloud);
 
     // Preprocess the input and call Track(). Extract features and performs stereo matching.
     cv::Mat GrabImageStereo(const cv::Mat &imRectLeft,const cv::Mat &imRectRight, const double &timestamp);
@@ -95,7 +98,11 @@ public:
     // Current Frame
     Frame mCurrentFrame;
     cv::Mat mImGray;
-
+    shared_ptr<PointCloudMapping> mpPointCloudMapping;
+    int mbpointcloud;
+    cv::Mat mImRGB;
+    cv::Mat mImDepth; // adding mImDepth member to realize pointcloud view
+    int idk ;
     // Initialization Variables (Monocular)
     std::vector<int> mvIniLastMatches;
     std::vector<int> mvIniMatches;
@@ -212,6 +219,8 @@ protected:
     bool mbRGB;
 
     list<MapPoint*> mlpTemporalPoints;
+    // for point cloud viewing
+
 };
 
 } //namespace ORB_SLAM

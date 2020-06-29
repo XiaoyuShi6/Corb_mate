@@ -21,11 +21,13 @@
 #ifndef LOOPCLOSING_H
 #define LOOPCLOSING_H
 
+#include "Pointcloudmapping.h"
+#include "Tracking.h"
 #include "KeyFrame.h"
 #include "LocalMapping.h"
 #include "Map.h"
 #include "ORBVocabulary.h"
-#include "Tracking.h"
+
 
 #include "KeyFrameDatabase.h"
 #include "Cache.h"
@@ -34,6 +36,7 @@
 #include <mutex>
 #include "Thirdparty/g2o/g2o/types/types_seven_dof_expmap.h"
 
+//class PointCloudMapping;
 namespace ORB_SLAM2
 {
 
@@ -52,7 +55,7 @@ public:
 
 public:
 
-    LoopClosing(Cache * pCacher,const bool bFixScale);
+    LoopClosing(Cache * pCacher,const bool bFixScale,shared_ptr<PointCloudMapping> pPointCloud,int mbpointcloud_);
 
     void SetTracker(Tracking* pTracker);
 
@@ -67,7 +70,10 @@ public:
 
     // This function will run in a separate thread
     void RunGlobalBundleAdjustment(unsigned long nLoopKF);
-
+    //point cloud
+    shared_ptr<PointCloudMapping>  mpPointCloudMapping;
+    int mbpointcloud;
+    int loopcount=0;
     bool isRunningGBA(){
         unique_lock<std::mutex> lock(mMutexGBA);
         return mbRunningGBA;

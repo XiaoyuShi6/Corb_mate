@@ -146,6 +146,7 @@ public:
     // "Monocular" keypoints have a negative value.
     std::vector<float> mvuRight;
     std::vector<float> mvDepth;
+    cv::Mat mDepthRGB;
 
     // Bag of Words Vector structures.
     DBoW2::BowVector mBowVec;

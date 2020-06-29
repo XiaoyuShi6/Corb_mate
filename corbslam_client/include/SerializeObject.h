@@ -24,7 +24,7 @@
 //#include "LightMapPoint.h"
 //#include "LightKeyFrame.h"
 
-using namespace cv;
+//using namespace cv;
 
 
 namespace boost {

@@ -22,21 +22,24 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#include "Pointcloudmapping.h"
+#include "Tracking.h"
+#include "LoopClosing.h"
 #include<string>
 #include<thread>
-#include<opencv2/core/core.hpp>
 
-#include "Tracking.h"
+
+
 #include "FrameDrawer.h"
 #include "MapDrawer.h"
 #include "Map.h"
 #include "LocalMapping.h"
-#include "LoopClosing.h"
+
 #include "KeyFrameDatabase.h"
 #include "ORBVocabulary.h"
 #include "Viewer.h"
 #include "Cache.h"
-
+#include<opencv2/core/core.hpp>
 namespace ORB_SLAM2
 {
 
@@ -113,6 +116,10 @@ public:
     // TODO: Save/Load functions
     void SaveMap(const string &filename);
     void LoadMap(const string &filename);
+    //point cloud map
+    shared_ptr<PointCloudMapping> mpPointCloudMapping;
+    int mbpointcloud;
+    void save();
 
 private:
 

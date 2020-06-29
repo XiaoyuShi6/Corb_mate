@@ -35,9 +35,9 @@
 namespace ORB_SLAM2
 {
 
-LoopClosing::LoopClosing(Cache* pCacher, const bool bFixScale):
+LoopClosing::LoopClosing(Cache* pCacher, const bool bFixScale,shared_ptr<PointCloudMapping> pPointCloud,int mbpointcloud_):
     mbResetRequested(false), mbFinishRequested(false), mbFinished(true), mpCacher(pCacher),mpMatchedKF(NULL), mLastLoopKFid(0), mbRunningGBA(false), mbFinishedGBA(true),
-    mbStopGBA(false), mpThreadGBA(NULL), mbFixScale(bFixScale), mnFullBAIdx(0)
+    mbStopGBA(false), mpThreadGBA(NULL), mbFixScale(bFixScale), mnFullBAIdx(0),mpPointCloudMapping(pPointCloud),mbpointcloud(mbpointcloud_)
 {
     mnCovisibilityConsistencyTh = 3;
 }
@@ -652,7 +652,10 @@ void LoopClosing::ResetIfRequested()
 void LoopClosing::RunGlobalBundleAdjustment(unsigned long nLoopKF)
 {
     cout << "Starting Global Bundle Adjustment" << endl;
-
+    if(mbpointcloud==1)
+    {
+        mpPointCloudMapping->loopbusy = true;
+    }
     int idx =  mnFullBAIdx;
     //TODO:change mpMap to cache
     Optimizer::GlobalBundleAdjustemnt(mpCacher,10,&mbStopGBA,nLoopKF,false);
@@ -753,7 +756,14 @@ void LoopClosing::RunGlobalBundleAdjustment(unsigned long nLoopKF)
             }
 
             mpLocalMapper->Release();
-
+            if(mbpointcloud==1)
+            {
+                loopcount++;
+                while(loopcount!=mpPointCloudMapping->loopcount)
+                    mpPointCloudMapping->updatecloud();
+                cout<<"mpPointCloudMapping->loopcount="<<mpPointCloudMapping->loopcount<<endl;
+                cout << "Map updated!" << endl;
+            }
             cout << "Map updated!" << endl;
         }
 
@@ -785,6 +795,5 @@ bool LoopClosing::isFinished()
     unique_lock<mutex> lock(mMutexFinish);
     return mbFinished;
 }
-
 
 } //namespace ORB_SLAM

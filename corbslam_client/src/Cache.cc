@@ -323,7 +323,7 @@ namespace ORB_SLAM2 {
     void Cache::runUpdateToServer() {
 
 
-        while (true) {
+        while (true&&ros::ok()) {
 
             std::set<LightKeyFrame> tnewInsertedKFs;
             std::set<LightMapPoint> tnewInsertedMPs;
@@ -418,30 +418,29 @@ namespace ORB_SLAM2 {
 
     void Cache::runSubFromServer() {
 
-        //TODO: sub using ROS SUB
 
-        ros::NodeHandle n;
+            ros::NodeHandle n;
+            //subcribe the add new KFs Topic published by Server
+            ros::Subscriber subInsertKeyFrameToMap = n.subscribe("insertKeyFramesFromServer",
+                                                                 100,
+                                                                 &ORB_SLAM2::Cache::subNewInsertKeyFramesFromServer,
+                                                                 this);
 
-        //subcribe the add new KFs Topic published by Server
-        ros::Subscriber subInsertKeyFrameToMap = n.subscribe("insertKeyFramesFromServer",
-                                                             100, &ORB_SLAM2::Cache::subNewInsertKeyFramesFromServer,
-                                                             this);
+            //subcribe the add new MPs Topic published by Server
+            ros::Subscriber subInsertMapPointToMap = n.subscribe("insertMapPointsFromServer",
+                                                                 100, &ORB_SLAM2::Cache::subNewInsertMapPointFromServer,
+                                                                 this);
 
-        //subcribe the add new MPs Topic published by Server
-        ros::Subscriber subInsertMapPointToMap = n.subscribe("insertMapPointsFromServer",
-                                                             100, &ORB_SLAM2::Cache::subNewInsertMapPointFromServer,
-                                                             this);
+            //subcribe the update poses of KFs Topic published by Server
+            ros::Subscriber subUpdateKeyFrameToMap = n.subscribe("updateKeyFramePosesFromServer",
+                                                                 100, &ORB_SLAM2::Cache::subUpdatedKeyFramesPose, this);
 
-        //subcribe the update poses of KFs Topic published by Server
-        ros::Subscriber subUpdateKeyFrameToMap = n.subscribe("updateKeyFramePosesFromServer",
-                                                             100, &ORB_SLAM2::Cache::subUpdatedKeyFramesPose, this);
+            //subcribe the update poses of MPs Topic published by Server
+            ros::Subscriber subUpdateMapPointToMap = n.subscribe("updateMapPointPosesFromServer",
+                                                                 100, &ORB_SLAM2::Cache::subUpdatedMapPointsPose, this);
 
-        //subcribe the update poses of MPs Topic published by Server
-        ros::Subscriber subUpdateMapPointToMap = n.subscribe("updateMapPointPosesFromServer",
-                                                             100, &ORB_SLAM2::Cache::subUpdatedMapPointsPose, this);
-
-        ros::MultiThreadedSpinner s2(1);
-        ros::spin(s2);
+            ros::MultiThreadedSpinner s2(1);
+            ros::spin(s2);
 
     }
 

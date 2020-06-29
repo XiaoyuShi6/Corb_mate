@@ -38,7 +38,6 @@ namespace ORB_SLAM2 {
              "This program comes with ABSOLUTELY NO WARRANTY;" << endl <<
              "This is free software, and you are welcome to redistribute it" << endl <<
              "under certain conditions. See LICENSE.txt." << endl << endl;
-
         cout << "Input sensor was set to: ";
 
         if (mSensor == MONOCULAR)
@@ -54,6 +53,11 @@ namespace ORB_SLAM2 {
             cerr << "Failed to open settings file at: " << strSettingsFile << endl;
             exit(-1);
         }
+        // for point cloud resolution
+        float resolution = fsSettings["PointCloudMapping.Resolution"];
+        float meank = fsSettings["meank"];
+        float thresh = fsSettings["thresh"];
+        mbpointcloud=fsSettings["mbpointcloud"];
         //将map和KeyFrameDatabase整合到了Cache中
         mpCacher = new Cache();
 
@@ -69,10 +73,15 @@ namespace ORB_SLAM2 {
         mpFrameDrawer = new FrameDrawer(mpCacher->getMpMap());
         mpMapDrawer = new MapDrawer(mpCacher->getMpMap(), strSettingsFile);
 
+            // Initialize pointcloud mapping
+        mpPointCloudMapping = make_shared<PointCloudMapping>( resolution,meank,thresh,mbpointcloud);
+        mpTracker = new Tracking(this, mpCacher, mpFrameDrawer, mpMapDrawer,
+                                 strSettingsFile, mSensor,mpPointCloudMapping,mbpointcloud);
+
         //Initialize the Tracking thread
         //(it will live in the main thread of execution, the one that called this constructor)
-        mpTracker = new Tracking(this, mpCacher, mpFrameDrawer, mpMapDrawer,
-                                 strSettingsFile, mSensor);
+//        mpTracker = new Tracking(this, mpCacher, mpFrameDrawer, mpMapDrawer,
+//                                 strSettingsFile, mSensor);
 
         //Initialize the Local Mapping thread and launch
         mpLocalMapper = new LocalMapping(mpCacher, mSensor == MONOCULAR);
@@ -83,7 +92,7 @@ namespace ORB_SLAM2 {
         mptCacheSub = new thread(&ORB_SLAM2::Cache::runSubFromServer, mpCacher);
 
         //Initialize the Loop Closing thread and launch
-        mpLoopCloser = new LoopClosing(mpCacher, mSensor != MONOCULAR);
+        mpLoopCloser = new LoopClosing(mpCacher, mSensor != MONOCULAR,mpPointCloudMapping,mbpointcloud);
         mptLoopClosing = new thread(&ORB_SLAM2::LoopClosing::Run, mpLoopCloser);
 
         //Initialize the Viewer thread and launch
@@ -240,6 +249,10 @@ namespace ORB_SLAM2 {
 
         mpLocalMapper->RequestFinish();
         mpLoopCloser->RequestFinish();
+        if(mbpointcloud==1)
+        {
+            mpPointCloudMapping->shutdown();
+        }
         // mpViewer->RequestFinish();
 
         // Wait until all thread have effectively stopped
@@ -405,7 +418,11 @@ namespace ORB_SLAM2 {
     void System::SaveMap(const string &filename) {
         this->mpCacher->SaveMap(filename);
     }
-
+    void System::save()
+    {
+        if(mbpointcloud==1)
+            mpPointCloudMapping->save();
+    }
     void System::LoadMap(const string &filename) {
         this->mpCacher->LoadMap(filename);
     }

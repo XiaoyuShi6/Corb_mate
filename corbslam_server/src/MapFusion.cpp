@@ -46,7 +46,7 @@ namespace CORBSLAM_SERVER{
             if( ifSubToGlobalMap[ clientId ] ) {
 
                 for ( int mit = 0 ; mit < (int)elementVec.size(); mit++ ) {
-                    try {
+                    {
                         ORB_SLAM2::KeyFrame *tKF = new ORB_SLAM2::KeyFrame();
                         std::stringstream iis( elementVec[mit] );
                         boost::archive::text_iarchive iia(iis);
@@ -60,12 +60,9 @@ namespace CORBSLAM_SERVER{
                             globalMap->pCacher->AddKeyFrameToMap( tKF );
                             globalMap->pCacher->addKeyFrametoDB( tKF );
                         }
-                    } catch( ... ) {
-                        cout << "error in : " << mit << endl;
                     }
-                }
-
-            } else {
+            } }
+            else {
 
                 if( serverMap.find( clientId ) == serverMap.end() ) {
                     createSubServerMap( clientId );
@@ -75,7 +72,7 @@ namespace CORBSLAM_SERVER{
                 clientMap->pCacher->pClientId = clientId;
 
                 for ( int mit = 0 ; mit < (int)elementVec.size(); mit++ ) {
-                    try {
+                    {
                         ORB_SLAM2::KeyFrame *tKF = new ORB_SLAM2::KeyFrame();
                         std::stringstream iis( elementVec[mit] );
                         boost::archive::text_iarchive iia(iis);
@@ -86,10 +83,7 @@ namespace CORBSLAM_SERVER{
                             clientMap->pCacher->AddKeyFrameToMap( tKF );
                             clientMap->pCacher->addKeyFrametoDB( tKF );
                         }
-                    } catch( ... ) {
-                        cout << elementVec[mit] << endl;
-                        cout << "error in : " << mit << endl;
-                    }
+                    } 
                 }
 
             }

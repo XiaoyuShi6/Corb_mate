@@ -49,12 +49,12 @@ if(NOT OpenCV_FOUND)
         message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
     endif()
 endif()
-find_package(Eigen3 3.1.0 REQUIRED)
+find_package(Eigen3 REQUIRED)
 find_package(Pangolin REQUIRED)
 
 ### find and configure Boost
 find_package(Boost COMPONENTS serialization system filesystem REQUIRED )
-
+find_package(PCL 1.7 REQUIRED)
 
 
 ## Generate messages in the 'msg' folder
@@ -99,11 +99,12 @@ include_directories(
         ${Pangolin_INCLUDE_DIRS}
         ${Boost_INCLUDE_DIR}
         ${PROJECT_SOURCE_DIR}/Examples/RGB-D
+        ${PCL_INCLUDE_DIRS}
+        #/usr/include/pcl-1.7
         /opt/ros/kinetic/include/cv_bridge
-        #/usr/local/include/pcl-1.8
-	/usr/include/pcl-1.7
 )
-
+#add_definitions( ${PCL_DEFINITIONS} )
+#link_directories( ${PCL_LIBRARY_DIRS} )
 ## Declare a C++ library
 
 LINK_DIRECTORIES(/usr/local/lib )
@@ -139,7 +140,9 @@ add_library(${PROJECT_NAME} SHARED
         include/SerializeObject.h
         include/DataDriver.h
         src/DataDriver.cc
-        include/TransPose.h src/TransPose.cpp)
+        include/TransPose.h src/TransPose.cpp
+        src/Pointcloudmapping.cpp
+        )
 
 target_link_libraries(${PROJECT_NAME}
         ${OpenCV_LIBS}
@@ -149,6 +152,7 @@ target_link_libraries(${PROJECT_NAME}
         ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
         ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
         ${Boost_LIBRARIES}
+        ${PCL_LIBRARIES}
         /opt/ros/kinetic/lib/libcv_bridge.so #cv_bridge的so文件
         )
 
